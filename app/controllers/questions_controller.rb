@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @question = Quesiton.find(params[:id])
+    @question = Question.find(params[:id])
   end
 
   def new
@@ -15,6 +15,7 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     if @question.save
+      flash[:notice] = "Your question was submitted successfully!"
       redirect_to "/"
     else
       render :new
@@ -29,7 +30,7 @@ class QuestionsController < ApplicationController
   def update
     @question = Question.find(params[:id])
     if @question.update(question_params)
-      redirect_to questions_path
+      redirect_to "/"
     else
       render :edit
     end
@@ -38,7 +39,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question = Question.find(params[:id])
     @question.destroy
-    redirect_to questions_path
+    redirect_to "/"
   end
 
   private
