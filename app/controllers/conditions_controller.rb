@@ -14,7 +14,7 @@ class ConditionsController < ApplicationController
     @question = Question.find(params[:question_id])
     @condition = @question.conditions.new(condition_params)
     if @condition.save
-      redirect_to "/"
+      redirect_to question_path(@condition.question)
     else
       render :new
     end
