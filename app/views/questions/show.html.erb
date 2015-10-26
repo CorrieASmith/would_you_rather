@@ -2,8 +2,25 @@
 <br>
 
 <% if @question.conditions.any? %>
+
+<h4>You chose this.</h4>
+<br>
+<ul>
+  <% @question.conditions.chosen.each do |condition| %>
+    <li>
+      <%= condition.description %> |
+      <%= link_to "Edit", edit_question_condition_path(@question, condition) %> |
+      <%= link_to "Delete", question_condition_path(@question, condition),
+                                    :data => {:confirm => "Are you sure?",
+                                                    :method => "delete"} %>
+    </li>
+  <% end %>
+</ul>
+
+<h4>You decided against this.</h4>
+<br>
   <ul>
-    <% @question.conditions.each do |condition| %>
+    <% @question.conditions.not_chosen.each do |condition| %>
       <li>
         <%= condition.description %> |
         <%= link_to "Edit", edit_question_condition_path(@question, condition) %> |
@@ -13,6 +30,7 @@
       </li>
     <% end %>
   </ul>
+
 <% else %>
   <p>There are no conditions yet.</p>
 <% end %>
