@@ -9,6 +9,11 @@
   <% @question.conditions.chosen.each do |condition| %>
     <li>
       <%= condition.description %>
+      <% if current_user %> |
+        <%= link_to "Delete", question_condition_path(@question, condition),
+                                      :data => {:confirm => "Are you sure?",
+                                                      :method => "delete"} %>
+      <% end %>
     </li>
   <% end %>
 </ul>
@@ -21,10 +26,12 @@
     <% @question.conditions.not_chosen.each do |condition| %>
       <li>
         <%= condition.description %> |
-        <%= link_to "Choose", edit_question_condition_path(@question, condition), id: "edit_condition", remote: true %> |
-        <%= link_to "Delete", question_condition_path(@question, condition),
-                                      :data => {:confirm => "Are you sure?",
-                                                      :method => "delete"} %>
+        <%= link_to "Choose", edit_question_condition_path(@question, condition), id: "edit_condition", remote: true %>
+        <% if current_user %> |
+          <%= link_to "Delete", question_condition_path(@question, condition),
+                                        :data => {:confirm => "Are you sure?",
+                                                        :method => "delete"} %>
+        <% end %>
 
       </li>
     <% end %>
@@ -35,8 +42,11 @@
 <% end %>
 
 <br>
-<p><%= link_to "Add a condition", new_question_condition_path(@question), id: "new_condition", remote: true %></p>
-<p><%= link_to "Edit", edit_question_path(@question), id: "edit_question", remote: true %></p>
-<p><%= link_to "Delete Question", question_path(@question),
-                              :data => {:confirm => "Are you sure?",
-                                              :method => "delete"}%></p>
+
+<% if current_user %>
+  <p><%= link_to "Add a condition", new_question_condition_path(@question), id: "new_condition", remote: true %></p>
+  <p><%= link_to "Edit", edit_question_path(@question), id: "edit_question", remote: true %></p>
+  <p><%= link_to "Delete Question", question_path(@question),
+                                :data => {:confirm => "Are you sure?",
+                                                :method => "delete"}%></p>
+<% end %>

@@ -1,4 +1,7 @@
-<%= link_to 'New Question', new_question_path, id: "new_link", remote: true %> 
+<% if current_user %>
+  <%= link_to 'New Question', new_question_path, id: "new_link", remote: true %>
+<br><br>
+<% end %>
 
 <h3>Questions</h3>
 <br>
