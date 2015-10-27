@@ -45,6 +45,6 @@ class ConditionsController < ApplicationController
 
   private
   def condition_params
-    params.require(:condition).permit(:description)
+    params.require(:condition).permit(:description, :chosen)
   end
 end
