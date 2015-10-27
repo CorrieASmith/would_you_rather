@@ -2,7 +2,7 @@ class ConditionsController < ApplicationController
   def show
     @question = Question.find(params[:question_id])
     @condition = Condition.find(params[:id])
-    redirect_to question_path(@condition.post)
+    redirect_to question_path(@condition.question)
   end
 
   def new
